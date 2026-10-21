@@ -49,3 +49,22 @@ jobs:
           gh release create "eclipse-es-${{ github.run_number }}" "$FILE" \
             --title "Eclipse ES patch #${{ github.run_number }}" \
             --notes "Parche de traduccion al espanol para Eclipse 0.6.47"
+
+      - name: Publicar patches-bundle.json (para anadir la fuente por enlace)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          FILE=$(ls proj/patches/build/libs/*.mpp | grep -v -e sources -e javadoc | head -n1)
+          NAME=$(basename "$FILE")
+          VER=$(echo "$NAME" | sed -E 's/^patches-(.*)\.mpp$/\1/')
+          TAG="eclipse-es-${{ github.run_number }}"
+          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/$NAME"
+          jq -n --arg url "$URL" --arg ver "$VER" --arg created "$(date -u +%Y-%m-%dT%H:%M:%S)" \
+            '{created_at: $created, description: "Traduccion al espanol de Eclipse (com.eclipse.android)", download_url: $url, signature_download_url: "", version: $ver}' \
+            > patches-bundle.json
+          cat patches-bundle.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add patches-bundle.json
+          git commit -m "patches-bundle.json para $TAG" || echo "sin cambios"
+          git push
