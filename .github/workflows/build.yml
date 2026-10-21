@@ -1,0 +1,51 @@
+name: Build Eclipse ES patch
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'eclipse-es-morphe.zip'
+      - '.github/workflows/build.yml'
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Descomprimir proyecto
+        run: unzip -q eclipse-es-morphe.zip -d proj
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Compilar parche (.mpp)
+        working-directory: proj
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x gradlew
+          ./gradlew :patches:buildAndroid --no-daemon
+
+      - name: Guardar como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: eclipse-es-patch
+          path: proj/patches/build/libs/*.mpp
+
+      - name: Publicar release con el .mpp
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          FILE=$(ls proj/patches/build/libs/*.mpp | grep -v -e sources -e javadoc | head -n1)
+          gh release create "eclipse-es-${{ github.run_number }}" "$FILE" \
+            --title "Eclipse ES patch #${{ github.run_number }}" \
+            --notes "Parche de traduccion al espanol para Eclipse 0.6.47"
