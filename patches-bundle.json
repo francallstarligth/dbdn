@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-22T03:25:09",
+  "created_at": "2026-10-22T03:35:17",
   "description": "Traduccion al espanol de Eclipse (com.eclipse.android)",
-  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-17/patches-1.5.0.mpp",
+  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-18/patches-1.5.1.mpp",
   "signature_download_url": "",
-  "version": "1.5.0"
+  "version": "1.5.1"
 }
