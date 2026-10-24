@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-24T16:15:22",
+  "created_at": "2026-10-24T16:20:46",
   "description": "Traduccion al espanol de Eclipse (com.eclipse.android)",
-  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-78/patches-1.64.0.mpp",
+  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-79/patches-1.64.1.mpp",
   "signature_download_url": "",
-  "version": "1.64.0"
+  "version": "1.64.1"
 }
