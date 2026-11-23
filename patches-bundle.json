@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-11-23T00:31:55",
+  "created_at": "2026-11-23T00:49:16",
   "description": "Traduccion al espanol de Eclipse (com.eclipse.android)",
-  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-474/patches-0.20.393.mpp",
+  "download_url": "https://github.com/francallstarligth/dbdn/releases/download/eclipse-es-475/patches-0.20.394.mpp",
   "signature_download_url": "",
-  "version": "0.20.393"
+  "version": "0.20.394"
 }
